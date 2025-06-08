@@ -155,7 +155,7 @@ class Game {
         let divElement = document.getElementById("fortextwin");
         divElement.innerHTML = `<h1>${win} win!🎉</h1><br><p>Dealer score: ${dealerdinamic.Points} Your score: ${playerdinamic.Points}`
 
-        document.querySelector('.btncnt').classList.toggle('btncntinv');
+        document.querySelector('.retmenu_container').classList.toggle('inv');
 
         divElement = document.getElementById('dealerhand');
         divElement.innerHTML = ``;
@@ -164,7 +164,7 @@ class Game {
         });
     }
     resetGame() {
-        document.getElementById('retmenu').classList.add('btncntinv');
+        document.getElementById('retmenu').classList.add('inv');
         document.getElementById("countcont").classList.toggle("ctninv", false);
         let divElement = document.getElementById('dealerhand');
         divElement.innerHTML = ``;
