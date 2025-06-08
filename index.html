@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+
+<html>
+
+    <head>
+        <style>
+            body {
+                background-color: #121212 ;
+            }
+            .container {
+                overflow: hidden;
+                display: grid;
+                height: 98vh;
+                grid-template-rows: 20% 53% 20% 15px 5%;
+                grid-template-columns: auto;
+            }
+            .container div {
+                overflow: hidden;
+            }
+            .playerhands, .dealerhands {
+                display: flex;
+            }
+            .playerhands img {
+                flex: 1 1 auto;        /* Растягиваем и сжимаем пропорционально */
+                min-width: 0;   
+                height: 100%;          /* Занимаем всю высоту контейнера */
+                object-fit: contain;   /* Сохраняем пропорции SVG */
+                transition: flex 0.3s; /* Плавное изменение размера (опционально) */
+                animation: fadeInUp 0.5s ease-out forwards;
+            }
+            .dealerhands img {
+                flex: 1 1 auto;        /* Растягиваем и сжимаем пропорционально */
+                min-width: 0;   
+                height: 100%;          /* Занимаем всю высоту контейнера */
+                object-fit: contain;   /* Сохраняем пропорции SVG */
+                transition: flex 0.3s; /* Плавное изменение размера (опционально) */
+                animation: fadeInUp 0.5s ease-out forwards;
+                
+            }
+            .button_container {
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: row; 
+                justify-content: space-between;
+            }
+            .button_container button {
+                border: none;
+                height: 100%;
+                width: 49vw;
+                border-radius: 25px;
+                color: #e1e5f2;
+                font-size: 200%;       /* Размер текста */
+                font-weight: bold;     /* Жирный текст */
+            }
+            .btn_set {
+                background-color: #252525  ;
+            }
+            .btn_get {
+                background-color: #333333  ;
+            }
+            .intermidian {
+                display: grid;
+                grid-template-columns: 80% 20%;
+                color: #e1e5f2;
+                text-align: center;
+                font-size: 36px;
+                font-weight: bold;
+            }
+            .btncnt {
+                background-color: #1A1A1A  ;
+                border-radius: 25px;
+                position: absolute;
+                width: 80vw;
+                left: 10vw;
+                top: 25vh;
+                height: 30vh;
+                display: grid;
+                padding: 15px;
+                grid-template-rows: 20vh 10vh;
+            }
+            .btncnt button {
+                height: 10vh;
+                position: absolute;
+                left: 300px;
+                width: 200px;
+                border-radius: 50%;
+                bottom: 30px;
+            }
+            .btncntinv {
+                display: none;
+
+            }
+            .gamestatus button {
+                position: absolute;
+                bottom: 15px;
+                height: 200px;
+                width: 200px;
+                border-radius: 50%;
+            }
+            .countcontainer {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #fortextwin {
+                color: white;
+                text-align: center;
+                font-weight: bold;
+                font-size: 32px;
+            }
+            .repeat {
+            position: relative;
+            padding: 12px 24px;
+            background: #2E2E2E  ;
+            color: white;
+            z-index: 10;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .repeat:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .repeat:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .repeat::after {
+            content: "↻";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .repeat.clicked {
+            animation: bounce 0.5s ease;
+        }
+        
+        .repeat.clicked::after {
+            animation: rotate 1s ease-out 0.2s;
+            opacity: 1;
+        }
+        .ctninv {
+            display: none;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes bounce {
+            0% { transform: scale(1); }
+            25% { transform: scale(0.95); }
+            50% { transform: scale(0.97); }
+            75% { transform: scale(0.99); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) rotate(180deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) rotate(360deg); opacity: 0; }
+        }
+        * {
+            font-family: "Montserrat";
+        }
+        </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="btncnt btncntinv" id="retmenu">
+            <div id="fortextwin"></div>
+            <div class="butcnt" onclick="retryBtnClick()"><button class="repeat" id="retry" onclick="retryBtnClick()"><img src="./retry.svg" id="retrys"></button></div>
+        </div>
+        <div class="container">
+            <div class="dealerhands" id="dealerhand"></div>
+            <div class="intermidian">
+                <div class="gamestatus">
+
+                </div>
+                <div class="countcontainer" id="countcont">
+<!--                     <p>Dealer<br>20</p>
+                    <p>Your<br>20</p> -->
+                </div>
+            </div>
+            <div class="playerhands" id="playerhand"></div>
+            <div></div>
+            <div class="button_container">
+                <button class="btn_set" id="setcard">Оставить</button>
+                <button class="btn_get" id="getcard">Взять</button>
+            </div>
+        </div>
+                <script src="./logic.js"></script>
+
+    </body>
+</html>
