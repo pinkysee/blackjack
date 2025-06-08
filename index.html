@@ -4,9 +4,15 @@
 <html>
 
     <head>
+        <meta name="viewport" content="width=device-width">
         <style>
             body {
                 background-color: #121212 ;
+                padding: 0;
+            }
+            * {
+                padding: 0;
+                margin: 0;
             }
             .container {
                 overflow: hidden;
@@ -64,32 +70,29 @@
                 grid-template-columns: 80% 20%;
                 color: #e1e5f2;
                 text-align: center;
-                font-size: 36px;
+                font-size: 100%;
                 font-weight: bold;
             }
             .btncnt {
                 background-color: #1A1A1A  ;
                 border-radius: 25px;
-                position: absolute;
                 width: 80vw;
-                left: 10vw;
-                top: 25vh;
                 height: 30vh;
                 display: grid;
                 padding: 15px;
-                grid-template-rows: 20vh 10vh;
+                z-index: 1;
+                grid-template-rows: 60% 40%;
+            }
+            .butcnt {
+                display: flex;
+                justify-content: center; /* Горизонтальное центрирование */
+                align-items: center; /* Вертикальное центрирование (если нужно) */
             }
             .btncnt button {
-                height: 10vh;
-                position: absolute;
-                left: 300px;
+                height: 200PX;
+
                 width: 200px;
                 border-radius: 50%;
-                bottom: 30px;
-            }
-            .btncntinv {
-                display: none;
-
             }
             .gamestatus button {
                 position: absolute;
@@ -107,11 +110,11 @@
                 color: white;
                 text-align: center;
                 font-weight: bold;
-                font-size: 32px;
+                font-size: 30px;
             }
+
             .repeat {
             position: relative;
-            padding: 12px 24px;
             background: #2E2E2E  ;
             color: white;
             z-index: 10;
@@ -184,15 +187,48 @@
         * {
             font-family: "Montserrat";
         }
+        @media (min-width: 587px) {
+            .btncnt {
+                height: 80vh;
+                top: 10vh;
+            }                
+        }
+        @media (max-width: 587px) {
+            #fortextwin {
+              font-size: 100%;
+            } 
+            #retry {
+                height: 50px;
+                width: 50px;
+            }
+            #retry img {
+/*                 position: absolute;
+                top: 3px;
+                left: 3px; */
+            }               
+        }
+            .retmenu_container {
+                justify-content: center;
+                display: flex;
+                align-items: center;
+                width: 100vw;
+                height: 100vh;
+                position: absolute;
+            }
+            .inv {
+                display: none;
+            }
         </style>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="btncnt btncntinv" id="retmenu">
-            <div id="fortextwin"></div>
+        <div class="retmenu_container inv" id="retmenu">
+            <div class="btncnt">
+                <div id="fortextwin"></div>
             <div class="butcnt" onclick="retryBtnClick()"><button class="repeat" id="retry" onclick="retryBtnClick()"><img src="./retry.svg" id="retrys"></button></div>
+        </div>
         </div>
         <div class="container">
             <div class="dealerhands" id="dealerhand"></div>
